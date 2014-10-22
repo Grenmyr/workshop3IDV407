@@ -13,20 +13,6 @@ class InternationalNewGameStrategy implements INewGameStrategy {
         dealer.dealTo(dealer, true);
         dealer.dealTo(player, true);
 
-//        Card c;
-//
-//        c = deck.GetCard();
-//        c.Show(true);
-//        player.DealCard(c);
-//
-//        c = deck.GetCard();
-//        c.Show(true);
-//        dealer.DealCard(c);
-//
-//        c = deck.GetCard();
-//        c.Show(true);
-//        player.DealCard(c);
-
         return true;
     }
 }
