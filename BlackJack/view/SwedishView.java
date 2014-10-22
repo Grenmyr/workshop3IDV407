@@ -1,11 +1,13 @@
 package BlackJack.view;
 
+import BlackJack.model.Card;
+
 public class SwedishView implements IView {
     public void DisplayWelcomeMessage() {
 
-        for (int i = 0; i < 50; i++) {
-            System.out.print("\n");
-        }
+//        for (int i = 0; i < 50; i++) {
+//            System.out.print("\n");
+//        }
 
         System.out.println("Hej Black Jack Världen");
         System.out.println("----------------------");
@@ -13,29 +15,23 @@ public class SwedishView implements IView {
     }
 
     public MenuItem GetInput() {
-        try {
-            int input = System.in.read();
+        String input = System.console().readLine();
 
-            switch (input) {
-                case 'p':
-                    return MenuItem.Play;
-                case 'h':
-                    return MenuItem.Hit;
-                case 's':
-                    return MenuItem.Stand;
-                case 'q':
-                    return MenuItem.Quit;
-                default:
-                    return MenuItem.InvalidChoice;
-            }
-        } catch (java.io.IOException e) {
-            System.out.println("" + e);
+        if (input.equals("p")) {
+            return MenuItem.Play;
+        } else if (input.equals("h")) {
+            return MenuItem.Hit;
+        } else if (input.equals("s")) {
+            return MenuItem.Stand;
+        } else if (input.equals("q")) {
+            return MenuItem.Quit;
+        } else {
             return MenuItem.InvalidChoice;
         }
     }
 
-    public void DisplayCard(BlackJack.model.Card card) {
-        if (card.GetColor() == BlackJack.model.Card.Color.Hidden) {
+    public void DisplayCard(Card card) {
+        if (card.GetColor() == Card.Color.Hidden) {
             System.out.println("Dolt Kort");
         } else {
             String colors[] =
@@ -46,11 +42,11 @@ public class SwedishView implements IView {
         }
     }
 
-    public void DisplayPlayerHand(Iterable<BlackJack.model.Card> hand, int score) {
+    public void DisplayPlayerHand(Iterable<Card> hand, int score) {
         DisplayHand("Spelare", hand, score);
     }
 
-    public void DisplayDealerHand(Iterable<BlackJack.model.Card> hand, int score) {
+    public void DisplayDealerHand(Iterable<Card> hand, int score) {
         DisplayHand("Croupier", hand, score);
     }
 
@@ -63,10 +59,10 @@ public class SwedishView implements IView {
         }
     }
 
-    private void DisplayHand(String a_name, Iterable<BlackJack.model.Card> hand, int score) {
+    private void DisplayHand(String a_name, Iterable<Card> hand, int score) {
         System.out.println(a_name + " Har: " + score);
-        for (BlackJack.model.Card c : hand) {
-            DisplayCard(c);
+        for (Card card : hand) {
+            DisplayCard(card);
         }
         System.out.println("Poäng: " + score);
         System.out.println("");

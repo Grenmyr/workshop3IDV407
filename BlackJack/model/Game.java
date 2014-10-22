@@ -12,6 +12,9 @@ public class Game {
         player = new Player();
     }
 
+    public void register(CardDealtSubscriber subscriber) {
+        dealer.register(subscriber);
+    }
 
     public boolean IsGameOver() {
         return dealer.IsGameOver();
@@ -21,18 +24,16 @@ public class Game {
         return dealer.IsDealerWinner(player);
     }
 
-    public boolean NewGame() {
-        return dealer.NewGame(player);
+    public void NewGame() {
+        dealer.NewGame(player);
     }
 
-    public boolean Hit() {
-        return dealer.Hit(player);
+    public void Hit() {
+        dealer.Hit(player);
     }
 
-    public boolean Stand() {
+    public void Stand() {
         dealer.Stand();
-        // TODO: Implement this according to Game_Stand.sequencediagram
-        return true;
     }
 
     public Iterable<Card> GetDealerHand() {

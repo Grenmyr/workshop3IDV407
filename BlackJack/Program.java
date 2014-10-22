@@ -1,5 +1,6 @@
 package BlackJack;
 
+import BlackJack.model.Game;
 import BlackJack.view.*;
 import BlackJack.controller.*;
 
@@ -7,10 +8,12 @@ public class Program {
 
     public static void main(String[] args) {
 
-        BlackJack.model.Game game = new BlackJack.model.Game();
+        Game game = new Game();
         IView view = new SwedishView();
-        GameController playGame = new GameController();
+        GameController gameController = new GameController(game, view);
 
-        while (playGame.Play(game, view));
+        game.register(gameController);
+
+        while (gameController.Play());
     }
 }

@@ -2,14 +2,19 @@ package BlackJack.model;
 
 import BlackJack.model.rules.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Dealer extends Player {
 
     private Deck deck;
     private INewGameStrategy newGameStrategy;
     private IHitStrategy hitRule;
     private IWinStrategy winStrategy;
+    private List<CardDealtSubscriber> subscribers;
 
     public Dealer(RulesFactory rulesFactory) {
+        subscribers = new ArrayList<CardDealtSubscriber>();
 
         newGameStrategy = rulesFactory.GetNewGameRule();
         hitRule = rulesFactory.GetHitRule();
@@ -21,15 +26,17 @@ public class Dealer extends Player {
     }    */
     }
 
+    public void register(CardDealtSubscriber subscriber) {
+        subscribers.add(subscriber);
+    }
 
-    public boolean NewGame(Player player) {
+    public void NewGame(Player player) {
         if (deck == null || IsGameOver()) {
             deck = new Deck();
             ClearHand();
             player.ClearHand();
-            return newGameStrategy.NewGame(deck, this, player);
+            newGameStrategy.NewGame(this, player);
         }
-        return false;
     }
 
     public boolean Hit(Player player) {
@@ -38,7 +45,7 @@ public class Dealer extends Player {
 
             return true;
         }
-        return false;
+        return true;
     }
 
     public boolean IsDealerWinner(Player player) {
@@ -69,5 +76,9 @@ public class Dealer extends Player {
         Card card = deck.GetCard();
         card.Show(visible);
         player.DealCard(card);
+
+        for (CardDealtSubscriber subscriber : subscribers) {
+            subscriber.CardDealt(player instanceof Dealer);
+        }
     }
 }

@@ -1,16 +1,22 @@
 package BlackJack.controller;
 
+import BlackJack.model.CardDealtSubscriber;
 import BlackJack.view.IView;
 import BlackJack.model.Game;
 import BlackJack.view.MenuItem;
 
-public class GameController {
+public class GameController implements CardDealtSubscriber {
+    private Game game;
+    private IView view;
 
-    public boolean Play(Game game, IView view) {
+    public GameController(Game game, IView view) {
+        this.game = game;
+        this.view = view;
+    }
+
+    public boolean Play() {
         view.DisplayWelcomeMessage();
 
-        view.DisplayDealerHand(game.GetDealerHand(), game.GetDealerScore());
-        view.DisplayPlayerHand(game.GetPlayerHand(), game.GetPlayerScore());
 
         if (game.IsGameOver()) {
             view.DisplayGameOver(game.IsDealerWinner());
@@ -33,5 +39,20 @@ public class GameController {
         }
 
         return true;
+    }
+
+    @Override
+    public void CardDealt(boolean toDealer) {
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        if (toDealer) {
+            view.DisplayDealerHand(game.GetDealerHand(), game.GetDealerScore());
+        } else {
+            view.DisplayPlayerHand(game.GetPlayerHand(), game.GetPlayerScore());
+        }
     }
 }

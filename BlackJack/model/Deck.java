@@ -32,10 +32,6 @@ public class Deck {
         return card;
     }
 
-    public Iterable<Card> GetCards() {
-        return cards;
-    }
-
     private void Shuffle() {
         for (int i = 0; i < 1017; i++) {
             int index = (int) (Math.random() * 171717.0) % cards.size();
