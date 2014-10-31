@@ -15,7 +15,6 @@ public class Player {
         assert (CARD_SCORES.length == Card.Value.Count.ordinal()) : "Card Scores array size does not match number of card values";
 
         hand = new ArrayList<Card>();
-        System.out.println("Hello List World");
     }
 
     public void DealCard(Card addToHand) {

@@ -19,6 +19,8 @@ public class GameController implements CardDealtSubscriber {
 
 
         if (game.IsGameOver()) {
+            view.DisplayPlayerHand(game.GetPlayerHand(), game.GetPlayerScore());
+            view.DisplayDealerHand(game.GetDealerHand(), game.GetDealerScore());
             view.DisplayGameOver(game.IsDealerWinner());
         }
 
